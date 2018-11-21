@@ -21,6 +21,9 @@ module CPU(
 	output wire data_OE_n_o,
 	output wire data_CE_n_o,
 	output wire [3:0] data_be_n_o,
+	output wire[15:0] led_o,
+	output wire[7:0] dpy0_o,
+	output wire[7:0] dpy1_o,
 	
 	inout wire [31:0] inst_io,
 	inout wire [31:0] data_io
@@ -297,7 +300,10 @@ module CPU(
     	.load_inst_o(MMU_load_inst_o),
     	.storeData_o(MMU_storeData_o),
     	.instAddr_o(MMU_instAddr_o),
-    	.dataAddr_o(MMU_dataAddr_o)
+    	.dataAddr_o(MMU_dataAddr_o),
+    	.led_o(led_o),
+    	.dpy0_o(dpy0_o),
+    	.dpy1_o(dpy1_o)
     );
     
     inst_sram_control inst_sram_control0(

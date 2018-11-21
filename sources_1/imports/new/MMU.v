@@ -15,7 +15,10 @@ module MMU(
 	output reg [31:0] load_inst_o,
 	output reg [31:0] storeData_o,
 	output reg [19:0] instAddr_o,
-	output reg [19:0] dataAddr_o
+	output reg [19:0] dataAddr_o,
+	output reg[15:0] led_o,
+	output reg[7:0] dpy0_o,
+	output reg[7:0] dpy1_o
 );
 	always @(*) begin 
 		if(rst == 1'b1) begin
@@ -25,7 +28,20 @@ module MMU(
 			storeData_o <= 32'b0;
 			instAddr_o <= 20'b0;
 			dataAddr_o <= 20'b0;
-		end else begin
+			led_o <= 16'b0;
+			dpy0_o <= 8'b0;
+			dpy1_o <= 8'b0;
+		end
+		else if (data_ramAddr_i == 32'hbfd00400) begin
+		    ramOp_o <= `MEM_NOP;
+		    led_o <= storeData_i[15:0];
+		end
+		else if (data_ramAddr_i == 32'hbfd00408) begin
+		    ramOp_o <= `MEM_NOP;
+		    dpy0_o <= storeData_i[7:0];
+		    dpy1_o <= storeData_i[15:8];
+		end
+		else begin
 			ramOp_o <= ramOp_i;
 			load_data_o <= load_data_i;
 			load_inst_o <= load_inst_i;
@@ -36,3 +52,6 @@ module MMU(
 		end
 	end
 endmodule
+
+// #define LED_ADDR                0xbfd00400
+// #define NUM_ADDR                0xbfd00408
