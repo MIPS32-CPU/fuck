@@ -38,6 +38,7 @@ module CPU(
     
     //link ID and registers , ID/EX
     wire [31:0] reg_readData1_o, reg_readData2_o;
+    wire [7:0] reg_fuck_o;
     wire [31:0] HILO_HI_data_o, HILO_LO_data_o;
     wire [4:0] ID_readAddr1_o, ID_readAddr2_o;
     wire ID_readEnable1_o, ID_readEnable2_o;
@@ -175,7 +176,8 @@ module CPU(
         .readAddr1_i(ID_readAddr1_o),           .readAddr2_i(ID_readAddr2_o),
         .writeEnable_i(MEM_WB_writeEnable_o),   .writeAddr_i(MEM_WB_writeAddr_o), 
         .writeData_i(MEM_WB_LO_data_o),         .readData1_o(reg_readData1_o), 
-        .readData2_o(reg_readData2_o)
+        .readData2_o(reg_readData2_o),
+        .fuck_o(reg_fuck_o)
     );
     
     
@@ -307,9 +309,7 @@ module CPU(
     	.storeData_o(MMU_storeData_o),
     	.instAddr_o(MMU_instAddr_o),
     	.dataAddr_o(MMU_dataAddr_o),
-    	.led_o(led_o),
-    	.dpy0_o(dpy0_o),
-    	.dpy1_o(dpy1_o)
+    	.led_o(led_o)
     );
     
     inst_sram_control inst_sram_control0(
@@ -324,6 +324,15 @@ module CPU(
 		.ramAddr_o(base_ramAddr_o),
 	
 		.data_io(inst_io)
+    );
+    
+    SEG7_LUT seg0(
+        .iDIG(reg_fuck_o[3:0]),
+        .oSEG1(dpy0_o)
+    );
+    SEG7_LUT seg1(
+        .iDIG(reg_fuck_o[7:4]),
+        .oSEG1(dpy1_o)
     );
 
 endmodule
