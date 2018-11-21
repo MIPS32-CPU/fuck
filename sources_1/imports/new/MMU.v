@@ -33,14 +33,20 @@ module MMU(
 			dpy1_o <= 8'b0;
 		end
 		else if (data_ramAddr_i == 32'hbfd00400) begin
-		    ramOp_o <= `MEM_NOP;
+		    ramOp_o <= ramOp_i;
+		    load_data_o <= load_data_i;
+            load_inst_o <= load_inst_i;
+                        
+            storeData_o <= storeData_i;
+            instAddr_o <= inst_ramAddr_i[21:2];
+            dataAddr_o <= data_ramAddr_i[21:2];
 		    led_o <= storeData_i[15:0];
 		end
-		else if (data_ramAddr_i == 32'hbfd00408) begin
+		/*else if (data_ramAddr_i == 32'hbfd00408) begin
 		    ramOp_o <= `MEM_NOP;
 		    dpy0_o <= storeData_i[7:0];
 		    dpy1_o <= storeData_i[15:8];
-		end
+		end*/
 		else begin
 			ramOp_o <= ramOp_i;
 			load_data_o <= load_data_i;
