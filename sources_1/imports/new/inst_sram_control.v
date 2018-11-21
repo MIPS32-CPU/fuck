@@ -1,6 +1,7 @@
 `timescale 1ns/1ps
 `include<defines.v>
 
+// currently connected to base ram
 module inst_sram_control (
 	input wire rst,
 	input wire [19:0] ramAddr_i,
