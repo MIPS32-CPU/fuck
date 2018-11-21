@@ -10,9 +10,12 @@ module registers(
     input wire[31:0] writeData_i,
     
     output reg[31:0] readData1_o,
-    output reg[31:0] readData2_o
+    output reg[31:0] readData2_o,
+    output wire[7:0] fuck_o
 );
     reg[31:0] register[31:0];
+    
+    assign fuck_o =  register[19][7:0];
     
     //write Registers
     always @ (posedge clk) begin
