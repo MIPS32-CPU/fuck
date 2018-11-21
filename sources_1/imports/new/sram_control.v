@@ -44,7 +44,7 @@ module sram_control (
 			ramAddr_o <= 20'b0;
 			loadData_o <= 32'b0;
 			data_io_reg <= 32'bz;
-			success_o <= 1'b0;
+			success_o <= 1;
 			nstate <= IDLE;
 		end else begin
 			

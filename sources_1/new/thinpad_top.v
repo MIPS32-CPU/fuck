@@ -97,6 +97,7 @@ module thinpad_top(
 	.data_io(base_ram_data)
 );*/
 
+
 CPU CPU0(
 	.clk(clk_50M),
     .rst(reset_btn),
@@ -114,6 +115,9 @@ CPU CPU0(
 	.data_OE_n_o(ext_ram_oe_n),
 	.data_CE_n_o(ext_ram_ce_n),
 	.data_be_n_o(ext_ram_be_n),
+	.led_o(leds),
+	.dpy0_o(dpy0),
+	.dpy1_o(dpy1),
 		
 	.data_io(ext_ram_data),
 	.inst_io(base_ram_data)

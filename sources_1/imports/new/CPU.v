@@ -21,6 +21,9 @@ module CPU(
 	output wire data_OE_n_o,
 	output wire data_CE_n_o,
 	output wire [3:0] data_be_n_o,
+	output wire [15:0] led_o,
+	output wire [7:0] dpy0_o,
+	output wire [7:0] dpy1_o,
 	
 	inout wire [31:0] inst_io,
 	inout wire [31:0] data_io
@@ -274,12 +277,18 @@ module CPU(
     );
     
     sram_control sram_control0(
-    	.clk50(clk),							.rst(rst),
-    	.ramAddr_i(MMU_dataAddr_o),				.storeData_i(MMU_storeData_o),
-    	.ramOp_i(MMU_ramOp_o),					.loadData_o(MMU_load_data_o),
-    	.CE_n_o(ext_CE_n_o),					.WE_n_o(ext_WE_n_o),						
-    	.OE_n_o(ext_OE_n_o),					.be_n_o(ext_be_n_o),
-    	.data_io(data_io),						.success_o(ext_success_o),
+    	.clk50(clk),							
+    	.rst(rst),
+    	.ramAddr_i(MMU_dataAddr_o),				
+    	.storeData_i(MMU_storeData_o),
+    	.ramOp_i(MMU_ramOp_o),
+    	.loadData_o(MMU_load_data_o),
+    	.CE_n_o(ext_CE_n_o),					
+    	.WE_n_o(ext_WE_n_o),						
+    	.OE_n_o(ext_OE_n_o),					
+    	.be_n_o(ext_be_n_o),
+    	.data_io(data_io),						
+    	.success_o(ext_success_o),
     	.ramAddr_o(ext_ramAddr_o)
     );
     
@@ -297,7 +306,10 @@ module CPU(
     	.load_inst_o(MMU_load_inst_o),
     	.storeData_o(MMU_storeData_o),
     	.instAddr_o(MMU_instAddr_o),
-    	.dataAddr_o(MMU_dataAddr_o)
+    	.dataAddr_o(MMU_dataAddr_o),
+    	.led_o(led_o),
+    	.dpy0_o(dpy0_o),
+    	.dpy1_o(dpy1_o)
     );
     
     inst_sram_control inst_sram_control0(
